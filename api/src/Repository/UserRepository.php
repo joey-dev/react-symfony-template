@@ -19,6 +19,13 @@ class UserRepository extends ServiceEntityRepository
         parent::__construct($registry, User::class);
     }
 
+    public function upgradePassword(UserInterface $user, string $newEncodedPassword): void
+    {
+        $user->setPassword($newEncodedPassword);
+
+        $this->getEntityManager()->flush($user);
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */
